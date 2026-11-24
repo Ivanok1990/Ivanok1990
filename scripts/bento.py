@@ -15,16 +15,21 @@ from theme import MONO, ROOT, SANS, esc, icon, icons, write  # noqa: E402
 
 PROFILE = {
     "login": "Ivanok1990",
-    "first": "Omar Iván",
-    "last": "Quintanilla",
-    "role": "Full Stack Developer — Cloud & DevOps.",
-    "pitch": ["I build APIs, workers and the AWS", "infrastructure behind them."],
-    "status": "Open to remote roles",
-    "city": "Managua",
-    "tz": "UTC-6 · overlaps US hours",
-    "now_title": "Full Stack Dev",
-    "now_at": "@ Colibrí",
-    "now_desc": ["REST APIs, SQS workers", "and Terraform on AWS."],
+    "name": "Omar Iván Quintanilla",
+    "host": "omar@ivanok1990",
+    "initials": "OQ",
+    # neofetch-style facts: (key, value)
+    "facts": [
+        ("role", "Full Stack Dev @ Colibrí"),
+        ("project", "Colibrí Searcher"),
+        ("location", "Nicaragua · UTC−6"),
+        ("stack", "NestJS · React · Postgres"),
+        ("cloud", "AWS · Terraform · SQS"),
+        ("edu", "B.S. Software Engineering '26"),
+    ],
+    "headline": "Full Stack Developer · Cloud & DevOps",
+    "about": ["I build and maintain the portal our sales team", "uses to track leads, deals, and projects."],
+    "status": "open to remote",
     "stack": [
         ["typescript", "javascript", "react", "nextdotjs", "vite", "tailwindcss",
          "shadcnui", "nodedotjs", "nestjs", "express"],
@@ -41,10 +46,10 @@ PROFILE = {
     ],
     "journey": [
         ("Next", "Remote Full Stack role"),
-        ("2026", "Full Stack Dev @ Colibrí"),
-        ("2026", "Postgrad · Management & Leadership"),
+        ("Aug 2026", "Full Stack Dev @ Colibrí"),
+        ("Jun 2026", "Postgrad · Management & Leadership"),
+        ("2026", "B.S. Software Engineering · Keiser"),
         ("Before", "AI Engineer @ OneClick · AI QA @ Outlier"),
-        ("2025", "B.S. Software Engineering · Keiser"),
     ],
     "certs": ["GitHub Foundations", "ISTQB CTFL", "Terraform Associate"],
     "learning": "AWS Cloud Practitioner",
@@ -122,113 +127,142 @@ def streaks(days):
     return longest, current
 
 
-# --------------------------------------------------------------------------- row 1: hero
+# --------------------------------------------------------------------------- row 1: neofetch + contributions
+PIXEL_FONT = {  # 5x7
+    "O": ["01110", "10001", "10001", "10001", "10001", "10001", "01110"],
+    "Q": ["01110", "10001", "10001", "10001", "10101", "10010", "01101"],
+}
+
+
+def pixel_logo(x, y, text, px=8):
+    cols = []
+    for ch in text:
+        cols.extend(zip(*PIXEL_FONT[ch]))
+        cols.append(("0",) * 7)
+    cols = cols[:-1]
+    n = len(cols)
+    out = []
+    for c, col in enumerate(cols):
+        for r, bit in enumerate(col):
+            if bit == "1":
+                out.append(f'<rect x="{x + c * px}" y="{y + r * px}" width="{px - 1}" height="{px - 1}" rx="1.5" '
+                           f'fill="url(#logo)" class="px" style="animation-delay:{.5 + (c + r) * .035:.2f}s"/>')
+    return "".join(out), n * px, 7 * px
+
+
 def row_top(data, days):
     p = PROFILE
-    h1 = 158
-    H = M * 2 + h1 * 2 + G
-    xs = [M + i * (COL + G) for i in range(4)]
+    th = 328
+    H = M * 2 + th
+    tw = 2 * COL + G
     out = []
 
-    # name tile with gradient blobs
-    nx, ny, nw, nh = xs[0], M, 2 * COL + G, 2 * h1 + G
-    out.append(
-        f'<g class="up" style="--d:.05s"><rect x="{nx + .5}" y="{ny + .5}" width="{nw - 1}" height="{nh - 1}" rx="20" class="t"/>'
-        f'<g clip-path="url(#nameclip)" style="opacity:var(--blob)">'
-        f'<circle cx="{nx + 70}" cy="{ny + 70}" r="190" fill="url(#bv)" class="drift1"/>'
-        f'<circle cx="{nx + nw - 60}" cy="{ny + 110}" r="170" fill="url(#bc)" class="drift2"/>'
-        f'<circle cx="{nx + nw * .6:.0f}" cy="{ny + nh + 30}" r="200" fill="url(#bp)" class="drift3"/></g>'
-        # status pill
-        f'<rect x="{nx + 24}" y="{ny + 24}" width="{len(p["status"]) * 7.4 + 44:.0f}" height="30" rx="15" fill="var(--chip)" fill-opacity=".75" stroke="var(--edge)"/>'
-        f'<circle cx="{nx + 42}" cy="{ny + 39}" r="8" fill="var(--green)" opacity=".3" class="ping"/>'
-        f'<circle cx="{nx + 42}" cy="{ny + 39}" r="4.5" fill="var(--green)"/>'
-        f'<text x="{nx + 56}" y="{ny + 44}" class="gr sans b" style="font-size:13px">{esc(p["status"])}</text>'
-        f'</g>')
-    out.append(f'<g class="up" style="--d:.35s">'
-               + T(nx + 26, ny + 168, p["first"], "fg sans xb", 46, ";letter-spacing:-1.5px")
-               + T(nx + 26, ny + 218, p["last"], "fg sans xb", 46, ";letter-spacing:-1.5px")
-               + "</g>")
-    out.append(f'<g class="up" style="--d:.55s">'
-               + T(nx + 26, ny + 258, p["role"], "fg sans b", 16)
-               + "".join(T(nx + 26, ny + 282 + i * 21, line, "soft sans", 15) for i, line in enumerate(p["pitch"]))
-               + "</g>")
+    # ---- neofetch terminal
+    x, y = M, M
+    out.append(tile(x, y, tw, th, .05))
+    prompt = p["host"] + " ~ $"
+    out.append(f'<text x="{x + 24}" y="{y + 40}" class="gr mono" style="font-size:14px">{esc(prompt)}</text>')
+    cx = x + 24 + (len(prompt) + 1) * 8.4
+    out.append(f'<text x="{cx:.1f}" y="{y + 40}" class="fg mono ty" style="font-size:14px;--d:.2s;--t:.4s;--n:8">neofetch</text>')
+    logo, lw, lh = pixel_logo(x + 24, y + 74, p["initials"], px=6)
+    out.append(logo)
+    out.append(f'<text x="{x + 24 + lw / 2}" y="{y + 74 + lh + 22}" text-anchor="middle" class="mu mono in" '
+               f'style="font-size:11px;--d:1s">{esc("@" + p["login"])}</text>')
+    ix = x + 24 + lw + 26
+    fs, lh2, kw = 12, 21, 10 * 7.2
+    rows = [f'<text x="{ix}" y="{y + 80}" class="ac mono b" style="font-size:13.5px">{esc(p["host"])}</text>',
+            f'<line x1="{ix}" x2="{ix + len(p["host"]) * 8.1:.0f}" y1="{y + 89}" y2="{y + 89}" stroke="var(--edge)" stroke-width="1.5"/>']
+    for i, (k, v) in enumerate(p["facts"]):
+        yy = y + 110 + i * lh2
+        rows.append(f'<text x="{ix}" y="{yy}" class="ac mono" style="font-size:{fs}px">{esc(k)}</text>'
+                    f'<text x="{ix + kw:.0f}" y="{yy}" class="fg mono" style="font-size:{fs}px">{esc(v)}</text>')
+    yy = y + 110 + len(p["facts"]) * lh2
+    rows.append(f'<text x="{ix}" y="{yy}" class="ac mono" style="font-size:{fs}px">status</text>'
+                f'<circle cx="{ix + kw + 5:.0f}" cy="{yy - 4}" r="8" fill="var(--green)" opacity=".3" class="ping"/>'
+                f'<circle cx="{ix + kw + 5:.0f}" cy="{yy - 4}" r="4" fill="var(--green)"/>'
+                f'<text x="{ix + kw + 16:.0f}" y="{yy}" class="gr mono b" style="font-size:{fs}px">{esc(p["status"])}</text>')
+    out.append(f'<g class="up" style="--d:.7s">{"".join(rows)}</g>')
+    palette = ["#1a2029", "#e5534b", "#3ee07c", "#fbbf24", "#6d5dfc", "#e24bb0", "#18c2d8", "#f0f3f6"]
+    by = y + 74 + lh + 38
+    out.append("".join(f'<rect x="{x + 24 + (i % 4) * (lw / 4):.1f}" y="{by + (i // 4) * 12}" width="{lw / 4 - 3:.1f}" '
+                       f'height="9" rx="2" fill="{c}" class="in" style="--d:{1.3 + i * .06:.2f}s"/>'
+                       for i, c in enumerate(palette)))
+    out.append(f'<line x1="{x + 24}" x2="{x + tw - 24}" y1="{yy + 20}" y2="{yy + 20}" stroke="var(--edge)" class="in" style="--d:1.4s"/>')
+    out.append(f'<g class="up" style="--d:1.5s">' + "".join(
+        T(x + 24, yy + 50 + i * 22, line, "fg sans", 15) for i, line in enumerate(p["about"])) + "</g>")
 
-    # location tile
-    lx, ly = xs[2], M
-    dots = "".join(f'<circle cx="{lx + 26 + c * 11}" cy="{ly + 96 + r * 10}" r="1.6" class="mu" opacity=".45"/>'
-                   for r in range(5) for c in range(15))
-    px, py = lx + 26 + 5 * 11, ly + 96 + 3 * 10
-    out.append(tile(lx, ly, COL, h1, .15,
-                    label(lx + 24, ly + 34, "Based in")
-                    + T(lx + 24, ly + 64, p["city"], "fg sans xb", 22)
-                    + f'<g transform="translate({lx + 24 + len(p["city"]) * 14.2 + 10:.0f},{ly + 48})">'
-                    f'<rect width="26" height="18" rx="3" fill="#0067c6"/><rect y="6" width="26" height="6" fill="#fff"/></g>'
-                    + T(lx + 24, ly + 84, p["tz"], "mu sans", 12)
-                    + dots
-                    + f'<circle cx="{px}" cy="{py}" r="9" fill="none" stroke="var(--cyan)" stroke-width="1.5" class="ping"/>'
-                    + f'<circle cx="{px}" cy="{py}" r="4.5" class="cy"/>'))
-
-    # currently tile
-    cx = xs[3]
-    out.append(tile(cx, M, COL, h1, .25,
-                    label(cx + 24, M + 34, "Currently")
-                    + T(cx + 24, M + 64, p["now_title"], "fg sans xb", 21)
-                    + T(cx + 24, M + 86, p["now_at"], "soft sans", 15)
-                    + "".join(T(cx + 24, M + 116 + i * 19, l, "mu sans", 13) for i, l in enumerate(p["now_desc"]))))
-
-    # contributions tile (animated)
-    hx, hy, hw = xs[2], M + h1 + G, 2 * COL + G
+    # ---- contributions
+    hx = M + tw + G
+    nh = 92
+    out.append(tile(hx, M, tw, nh, .1,
+                    f'<text x="{hx + 24}" y="{M + 44}" class="fg sans xb" style="font-size:27px;letter-spacing:-.6px">{esc(p["name"])}</text>'
+                    + T(hx + 24, M + 68, p["headline"], "ac mono", 13)))
+    hy = M + nh + G
+    ch = th - nh - G
+    out.append(tile(hx, hy, tw, ch, .15))
     total = data["total"]
     longest, current = streaks(days)
+    best = max(days, key=lambda d: d["count"])
     first = date.fromisoformat(days[0]["date"])
     off = (first.weekday() + 1) % 7
     cols = (len(days) + off + 6) // 7
-    step = (hw - 48) / cols
+    step = (tw - 48) / cols
     cell = step * .78
-    gx, gy = hx + 24, hy + 86
-    best = max(days, key=lambda d: d["count"])
+    gx, gy = hx + 24, hy + 94
     cells = []
     for i, d in enumerate(days):
         idx = i + off
         c, r = idx // 7, idx % 7
         cls = f"h{d['level']} cell" + (" best" if d is best and d["count"] else "")
         cells.append(f'<rect x="{gx + c * step:.2f}" y="{gy + r * step:.2f}" width="{cell:.2f}" height="{cell:.2f}" rx="1.6" '
-                     f'class="{cls}" style="animation-delay:{.6 + c * .018 + r * .03:.2f}s"><title>{d["count"]} on {d["date"]}</title></rect>')
+                     f'class="{cls}" style="animation-delay:{.5 + c * .018 + r * .03:.2f}s"><title>{d["count"]} on {d["date"]}</title></rect>')
     grid_w, grid_h = cols * step, 7 * step
-    stat = f"{longest}-day best streak" if longest else "let's get this growing"
-    out.append(tile(hx, hy, hw, h1, .3,
-                    label(hx + 24, hy + 34, "Contributions · last 12 months")
-                    + f'<text x="{hx + 24}" y="{hy + 74}" class="fg sans xb" style="font-size:36px">{total:,}</text>'
-                    + T(hx + 24 + len(f"{total:,}") * 21 + 14, hy + 72, stat, "gr sans b", 13)
-                    + T(hx + hw - 24, hy + 72, f"current {current}d", "mu sans", 12, ";text-anchor:end")
-                    + "".join(cells)
-                    + f'<g clip-path="url(#gridclip)"><rect x="{gx - 50}" y="{gy - 2}" width="50" height="{grid_h + 4}" '
-                      f'fill="url(#beam)" class="scan"/></g>'))
+    out.append(label(hx + 24, hy + 34, "Contributions · last 12 months"))
+    num = f"{total:,}"
+    out.append(f'<text x="{hx + 24}" y="{hy + 76}" class="fg sans xb up" style="font-size:38px;--d:.3s">{num}</text>')
+    out.append(T(hx + 24 + sum(11 if ch == "," else 24 for ch in num) + 10, hy + 74, "contributions", "mu sans up", 14, ";--d:.4s"))
+    out += cells
+    out.append(f'<g clip-path="url(#gridclip)"><rect x="{gx - 50}" y="{gy - 2}" width="50" height="{grid_h + 4}" '
+               f'fill="url(#beam)" class="scan"/></g>')
+    # three stats
+    best_txt = date.fromisoformat(best["date"]).strftime("%b %d") if best["count"] else "—"
+    stats = [(f"{longest}d", "longest streak"), (f"{current}d", "current streak"),
+             (f"{best['count']}", f"best day · {best_txt}")]
+    sy = gy + grid_h + 36
+    sw = (tw - 48) / 3
+    for i, (v, k) in enumerate(stats):
+        out.append(f'<g class="up" style="--d:{1.2 + i * .1:.2f}s">'
+                   + T(hx + 24 + i * sw, sy, v, "fg sans xb", 22) + T(hx + 24 + i * sw, sy + 19, k, "mu sans", 12) + "</g>")
     defs = (
-        f'<defs><clipPath id="nameclip"><rect x="{nx}" y="{ny}" width="{nw}" height="{nh}" rx="20"/></clipPath>'
-        f'<clipPath id="gridclip"><rect x="{gx}" y="{gy - 2}" width="{grid_w}" height="{grid_h + 4}"/></clipPath>'
-        + "".join(f'<radialGradient id="{i}"><stop offset="0" stop-color="{c}"/><stop offset="1" stop-color="{c}" stop-opacity="0"/></radialGradient>'
-                  for i, c in (("bv", "#6d5dfc"), ("bc", "#18c2d8"), ("bp", "#e24bb0")))
-        + '<linearGradient id="beam" x1="0" x2="1"><stop offset="0" stop-color="#8f9bff" stop-opacity="0"/>'
-          '<stop offset=".8" stop-color="#8f9bff" stop-opacity=".18"/><stop offset="1" stop-color="#18c2d8" stop-opacity=".55"/></linearGradient>'
+        f'<defs><clipPath id="gridclip"><rect x="{gx}" y="{gy - 2}" width="{grid_w}" height="{grid_h + 4}"/></clipPath>'
+        '<linearGradient id="logo" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1="80" y2="140">'
+        '<stop offset="0" stop-color="#8f9bff"/><stop offset="1" stop-color="#18c2d8"/></linearGradient>'
+        '<linearGradient id="beam" x1="0" x2="1"><stop offset="0" stop-color="#8f9bff" stop-opacity="0"/>'
+        '<stop offset=".8" stop-color="#8f9bff" stop-opacity=".18"/><stop offset="1" stop-color="#18c2d8" stop-opacity=".55"/></linearGradient>'
         '</defs>')
     css = (
         "".join(f".h{i}{{fill:var(--h{i})}}" for i in range(5))
-        + ".cell{opacity:0;transform-box:fill-box;transform-origin:center;animation:pop .45s cubic-bezier(.2,.8,.2,1.5) forwards}"
+        + ".ty{clip-path:inset(0 100% 0 0);animation:ty var(--t) steps(var(--n),end) var(--d) forwards}"
+          "@keyframes ty{to{clip-path:inset(0 0 0 0)}}"
+          ".cur{fill:var(--fg);opacity:0;animation:in 0s var(--d) forwards,blink 1s steps(1) var(--d) infinite}"
+          "@keyframes blink{50%{opacity:0}}"
+          ".px{opacity:0;transform-box:fill-box;transform-origin:center;animation:pop .35s cubic-bezier(.2,.8,.2,1.5) forwards}"
+          ".cell{opacity:0;transform-box:fill-box;transform-origin:center;animation:pop .45s cubic-bezier(.2,.8,.2,1.5) forwards}"
           "@keyframes pop{from{opacity:0;transform:scale(.1)}to{opacity:1;transform:none}}"
           ".best{animation:pop .45s cubic-bezier(.2,.8,.2,1.5) forwards,beat 1.6s ease-in-out 2.4s infinite;stroke:var(--fg);stroke-opacity:0}"
           "@keyframes beat{50%{transform:scale(1.5);stroke-opacity:.9}}"
         f".scan{{opacity:0;animation:sweep 5s linear 1.8s infinite}}"
-        f"@keyframes sweep{{0%{{opacity:1;transform:translateX(0)}}92%{{opacity:1;transform:translateX({grid_w + 50:.0f}px)}}100%{{opacity:0;transform:translateX({grid_w + 50:.0f}px)}}}}"
-          ".drift1{animation:d1 14s ease-in-out infinite alternate}.drift2{animation:d2 17s ease-in-out infinite alternate}"
-          ".drift3{animation:d3 12s ease-in-out infinite alternate}"
-          "@keyframes d1{to{transform:translate(60px,40px)}}@keyframes d2{to{transform:translate(-50px,60px)}}"
-          "@keyframes d3{to{transform:translate(-70px,-40px)}}"
-          "@media (prefers-reduced-motion:reduce){.cell,.best{animation:none;opacity:1}.scan{display:none}"
-          ".drift1,.drift2,.drift3{animation:none}}"
+        f"@keyframes sweep{{0%{{opacity:1;transform:translateX(0)}}92%{{opacity:1;transform:translateX({grid_w + 50:.0f}px)}}"
+        f"100%{{opacity:0;transform:translateX({grid_w + 50:.0f}px)}}}}"
+          ".bar{fill:var(--h2);opacity:0;transform-box:fill-box;transform-origin:bottom;animation:grow .6s cubic-bezier(.2,.8,.2,1) forwards}"
+          ".bar.hi{fill:var(--h4)}"
+          "@keyframes grow{from{opacity:0;transform:scaleY(0)}to{opacity:1;transform:none}}"
+          "@media (prefers-reduced-motion:reduce){.cell,.best,.px,.bar{animation:none;opacity:1}.scan{display:none}"
+          ".ty{animation:none;clip-path:none}}"
     )
-    lab = (f'{p["first"]} {p["last"]} — {p["role"]} {" ".join(p["pitch"])} {p["status"]}. Based in {p["city"]}, Nicaragua. '
-           f'Currently {p["now_title"]} {p["now_at"]}. {total} contributions in the last 12 months, longest streak {longest} days.')
+    lab = (f'neofetch: {p["name"]} (@{p["login"]}); ' + "; ".join(f"{k}: {v}" for k, v in p["facts"])
+           + f'; status: {p["status"]}. {total} contributions in the last 12 months, longest streak {longest} days, '
+             f'current streak {current} days. {" ".join(p["about"])}')
     write("img/top.svg", svg(W, H, lab, "\n".join(out), css, defs))
 
 
