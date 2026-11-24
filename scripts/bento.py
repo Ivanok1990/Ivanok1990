@@ -46,7 +46,7 @@ PROFILE = {
          "tags": "AI · Computer vision · Web", "glow": "#e24bb0"},
     ],
     "journey": [
-        ("Next", "Remote Full Stack role"),
+        ("Next", "Master's degree"),
         ("Aug 2026", "Full Stack Dev @ Colibrí"),
         ("Jun 2026", "Postgrad · Management & Leadership"),
         ("2026", "B.S. Software Engineering · Keiser"),
