@@ -300,68 +300,118 @@ def row_stack():
 
 
 # --------------------------------------------------------------------------- row 3: architecture
-def node(x, y, w, h, title, sub, glyph, delay):
+def node(x, y, w, h, title, sub, glyph, delay, glow=0.0):
     return (f'<g class="up" style="--d:{delay:.2f}s">'
-            f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="12" fill="var(--chip)" stroke="var(--edge)"/>{glyph}'
+            f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="12" fill="var(--chip)" stroke="var(--edge)"/>'
+            f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="12" fill="none" stroke="var(--cyan)" stroke-width="1.5" '
+            f'class="hit" style="animation-delay:{glow:.2f}s"/>{glyph}'
             f'<text x="{x + 38}" y="{y + 24}" class="fg sans b" style="font-size:12.5px">{esc(title)}</text>'
-            f'<text x="{x + 38}" y="{y + 42}" class="mu mono" style="font-size:11px">{esc(sub)}</text></g>')
+            f'<text x="{x + 38}" y="{y + 42}" class="mu mono" style="font-size:10.5px">{esc(sub)}</text></g>')
 
 
 def row_architecture():
     ic = icons()
-    H = M * 2 + 330
+    H = M * 2 + 392
     out = [f'<rect x="{M + .5}" y="{M + .5}" width="{W - 2 * M - 1}" height="{H - 2 * M - 1}" rx="20" class="t"/>',
            label(M + 24, M + 34, "How I ship")]
-    rx, ry, rw, rh = 196, 60, 636, 232
+    rx, ry, rw, rh = 148, 52, 574, 214
     out.append(f'<g class="in" style="--d:.1s"><rect x="{rx}" y="{ry}" width="{rw}" height="{rh}" rx="14" fill="none" '
-               f'stroke="var(--amber)" stroke-opacity=".75" stroke-dasharray="6 6"/>'
+               f'stroke="var(--amber)" stroke-opacity=".75" stroke-dasharray="6 6" class="march"/>'
                f'{icon("aws", rx + 12, ry + 6, 30, ic)}'
-               f'<text x="{rx + 48}" y="{ry + 26}" class="am mono" style="font-size:12px">region · vpc</text>'
-               f'{icon("terraform", rx + rw - 196, ry + 12, 16, ic)}'
-               f'<text x="{rx + rw - 174}" y="{ry + 25}" class="mu mono" style="font-size:12px">managed by terraform</text></g>')
-    nw, nh, row_y, db_y = 132, 56, 108, 218
-    xs = {"client": 30, "lb": 212, "api": 370, "sqs": 528, "wk": 684}
-    queue = "".join(f'<rect x="{xs["sqs"] + 12 + i * 6}" y="{row_y + 18}" width="4" height="20" rx="1.5" class="pk" '
-                    f'opacity="{.45 + i * .18:.2f}"/>' for i in range(4))
-    lb = (f'<g fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"><path d="M{xs["lb"] + 12} {row_y + 28} h6 '
-          f'M{xs["lb"] + 18} {row_y + 28} l10 -8 M{xs["lb"] + 18} {row_y + 28} l10 8 M{xs["lb"] + 18} {row_y + 28} h10"/></g>')
-    gear = (f'<g transform="translate({xs["wk"] + 22},{row_y + 28})"><g class="spin"><circle r="7" fill="none" '
-            f'stroke="var(--violet)" stroke-width="3" stroke-dasharray="3.2 2.3"/><circle r="3" class="vi"/></g></g>')
+               f'<text x="{rx + 48}" y="{ry + 26}" class="am mono" style="font-size:12px">dev · prod</text>'
+               f'{icon("terraform", rx + rw - 150, ry + 12, 16, ic)}'
+               f'<text x="{rx + rw - 128}" y="{ry + 25}" class="mu mono" style="font-size:12px">by terraform</text></g>')
+    nw, nh = 118, 56
+    ya, yb = 98, 192
+    cols = [160, 300, 440, 580]
+    lx, lw, ox, ow = 18, 116, 736, 110
+    mid = lambda y: y + nh / 2  # noqa: E731
+    cycle = 3.2
+    edges = {
+        "e1": f"M{lx + lw} {mid(ya)} H{cols[0]}",
+        "e2": f"M{cols[0] + nw} {mid(ya)} H{cols[1]}",
+        "e3": f"M{cols[1] + nw} {mid(ya)} H{cols[2]}",
+        "e4": f"M{cols[2] + nw} {mid(ya)} H{cols[3]}",
+        "e5": f"M{cols[3] + nw} {mid(ya)} H{ox}",
+        "e6": f"M{cols[1] + nw / 2} {ya + nh} V{yb}",
+        "e7": f"M{cols[3] + nw / 2} {ya + nh + 8} V{mid(yb)} H{cols[1] + nw}",
+    }
     out.append('<g fill="none" stroke="var(--edge)" stroke-width="2">'
-               f'<path id="e1" d="M{xs["client"] + nw} {row_y + 28} H{xs["lb"]}"/>'
-               f'<path id="e2" d="M{xs["lb"] + nw} {row_y + 28} H{xs["api"]}"/>'
-               f'<path id="e3" d="M{xs["api"] + nw} {row_y + 28} H{xs["sqs"]}"/>'
-               f'<path id="e4" d="M{xs["sqs"] + nw} {row_y + 28} H{xs["wk"]}"/>'
-               f'<path id="e5" d="M{xs["api"] + nw / 2} {row_y + nh} V{db_y}"/>'
-               f'<path id="e6" d="M{xs["wk"] + nw / 2} {row_y + nh + 8} V{db_y + 28} H{xs["api"] + nw}"/></g>')
-    t = .3
-    out.append(node(xs["client"], row_y, nw, nh, "Web app", "react/next", icon("react", xs["client"] + 10, row_y + 16, 22, ic), t))
-    out.append(node(xs["lb"], row_y, nw, nh, "Load balancer", "rate limit", lb, t + .15))
-    out.append(node(xs["api"], row_y, nw, nh, "REST API", "nestjs/prisma", icon("nestjs", xs["api"] + 10, row_y + 16, 22, ic), t + .3))
-    out.append(node(xs["sqs"], row_y, nw, nh, "SQS queue", "jobs/retries", queue, t + .45))
+               + "".join(f'<path id="{k}" d="{d}"/>' for k, d in edges.items()) + "</g>")
+
+    person = (f'<g fill="var(--cyan)"><circle cx="{lx + 21}" cy="{ya + 22}" r="5"/>'
+              f'<path d="M{lx + 12} {ya + 40} a9 9 0 0 1 18 0 z"/></g>')
+    queue = "".join(f'<rect x="{cols[2] + 11 + i * 6}" y="{ya + 18}" width="4" height="20" rx="1.5" class="pk qbar" '
+                    f'style="animation-delay:{i * .25:.2f}s"/>' for i in range(4))
+    gear = (f'<g transform="translate({cols[3] + 21},{ya + 28})"><g class="spin"><circle r="7" fill="none" '
+            f'stroke="var(--violet)" stroke-width="3" stroke-dasharray="3.2 2.3"/><circle r="3" class="vi"/></g></g>')
+    globe = (f'<g fill="none" stroke="var(--violet)" stroke-width="1.8" class="spin-slow" style="transform-origin:{ox + 21}px {ya + 28}px">'
+             f'<circle cx="{ox + 21}" cy="{ya + 28}" r="10"/><ellipse cx="{ox + 21}" cy="{ya + 28}" rx="4.5" ry="10"/>'
+             f'<path d="M{ox + 11} {ya + 28} h20"/></g>')
+    base = 1.6
+    out.append(node(lx, ya, lw, nh, "Users", "browser", person, .3, base))
+    out.append(node(cols[0], ya, nw, nh, "Web app", "react · vite", icon("react", cols[0] + 10, ya + 16, 22, ic), .4, base + .4))
+    out.append(node(cols[1], ya, nw, nh, "REST API", "nestjs", icon("nestjs", cols[1] + 10, ya + 16, 22, ic), .5, base + .8))
+    out.append(node(cols[2], ya, nw, nh, "Queue", "sqs + dlq", queue, .6, base + 1.2))
     for k in (2, 1):
-        out.append(f'<rect x="{xs["wk"] + k * 5}" y="{row_y + k * 5}" width="{nw}" height="{nh}" rx="12" fill="var(--chip)" '
-                   f'stroke="var(--edge)" class="up" style="--d:{t + .6:.2f}s"/>')
-    out.append(node(xs["wk"], row_y, nw, nh, "Workers", "autoscaled", gear, t + .6))
-    out.append(node(xs["api"], db_y, nw, nh, "PostgreSQL", "primary db", icon("postgresql", xs["api"] + 10, db_y + 16, 22, ic), t + .75))
-    for path, cls, begin in [("e1", "cy", 0), ("e2", "cy", .5), ("e3", "pk", 1), ("e4", "pk", 1.5), ("e5", "cy", .8),
-                             ("e6", "vi", 2.1), ("e1", "cy", 1.6), ("e3", "pk", 2.6)]:
-        out.append(f'<circle r="4.5" class="{cls}" opacity="0"><animateMotion dur="1.6s" begin="{1.6 + begin:.1f}s" '
-                   f'repeatCount="indefinite"><mpath href="#{path}"/></animateMotion>'
-                   f'<animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.85;1" dur="1.6s" '
-                   f'begin="{1.6 + begin:.1f}s" repeatCount="indefinite"/></circle>')
-    out.append(f'<g class="up" style="--d:1.2s">{icon("githubactions", 30, db_y + 14, 22, ic)}'
-               f'<text x="60" y="{db_y + 24}" class="fg sans b" style="font-size:13px">CI/CD</text>'
-               f'<text x="60" y="{db_y + 42}" class="mu mono" style="font-size:11px">github actions</text>'
-               f'<path d="M150 {db_y + 28} H{rx - 6}" stroke="var(--green)" stroke-width="2" stroke-dasharray="4 5" '
-               f'fill="none" class="flow"/></g>')
-    out.append(f'<text x="{M + 24}" y="{H - M - 20}" class="sans up" style="font-size:13px;--d:1.4s">'
-               f'<tspan class="fg b">Event-driven backends on AWS</tspan><tspan class="mu"> — provisioned with Terraform, '
-               f'shipped with GitHub Actions, tested with Jest &amp; k6.</tspan></text>')
+        out.append(f'<rect x="{cols[3] + k * 4}" y="{ya + k * 4}" width="{nw}" height="{nh}" rx="12" fill="var(--chip)" '
+                   f'stroke="var(--edge)" class="up" style="--d:.7s"/>')
+    out.append(node(cols[3], ya, nw, nh, "Workers", "scaling", gear, .7, base + 1.6))
+    out.append(node(ox, ya, ow, nh, "External", "3rd-party", globe, .8, base + 2.0))
+    out.append(node(cols[1], yb, nw, nh, "PostgreSQL", "amazon rds", icon("postgresql", cols[1] + 10, yb + 16, 22, ic), .9, base + 2.4))
+    out.append(f'<text x="{(cols[1] + cols[3]) / 2 + nw / 2 + 10}" y="{ya - 10}" text-anchor="middle" class="gr mono in" '
+               f'style="font-size:10px;--d:1s">lightsail containers</text>')
+
+    # packets: a steady stream on every edge, staggered so the flow reads left to right
+    stream = [("e1", "cy", 0), ("e2", "cy", .4), ("e3", "pk", .8), ("e4", "pk", 1.2), ("e5", "vi", 1.6),
+              ("e6", "cy", .6), ("e7", "vi", 2.0)]
+    for path, cls, b in stream:
+        for rep in (0, cycle / 2):
+            begin = base + b + rep
+            out.append(f'<circle r="4" class="{cls}" opacity="0"><animateMotion dur="1.2s" begin="{begin:.1f}s;{begin:.1f}s+{cycle}s" '
+                       f'repeatCount="indefinite"><mpath href="#{path}"/></animateMotion>'
+                       f'<animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.85;1" dur="1.2s" '
+                       f'begin="{begin:.1f}s" repeatCount="indefinite"/></circle>')
+
+    # pipeline
+    py = 300
+    out.append(f'<g class="in" style="--d:1s">{icon("githubactions", M + 24, py - 13, 15, ic)}'
+               f'<text x="{M + 46}" y="{py}" class="lbl">CI/CD · GITHUB ACTIONS</text></g>')
+    steps = ["Push", "Test", "Snapshot", "Build", "Deploy", "Smoke"]
+    n, gap, sh = len(steps), 26, 34
+    sw = (W - 2 * M - 48 - gap * (n - 1)) / n
+    sy = py + 14
+    pipe_d = f"M{M + 24} {sy + sh / 2} H{W - M - 24}"
+    out.append(f'<path id="pipe" d="{pipe_d}" stroke="var(--edge)" stroke-width="2" fill="none"/>')
+    run = 4.2
+    for i, s_ in enumerate(steps):
+        x = M + 24 + i * (sw + gap)
+        out.append(f'<g class="up" style="--d:{1.1 + i * .08:.2f}s">'
+                   f'<rect x="{x:.1f}" y="{sy}" width="{sw:.1f}" height="{sh}" rx="17" fill="var(--chip)" stroke="var(--edge)"/>'
+                   f'<rect x="{x:.1f}" y="{sy}" width="{sw:.1f}" height="{sh}" rx="17" fill="var(--green)" fill-opacity=".14" '
+                   f'stroke="var(--green)" class="lit" style="animation-delay:{2 + (i + .5) / n * run:.2f}s"/>'
+                   f'<text x="{x + sw / 2:.1f}" y="{sy + 22}" text-anchor="middle" class="fg sans b" style="font-size:12.5px">{esc(s_)}</text></g>')
+    out.append(f'<circle r="5" class="gr" opacity="0"><animateMotion dur="{run}s" begin="2s" repeatCount="indefinite">'
+               f'<mpath href="#pipe"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" '
+               f'keyTimes="0;.04;.96;1" dur="{run}s" begin="2s" repeatCount="indefinite"/></circle>')
+
+    out.append(f'<text x="{M + 24}" y="{H - M - 22}" class="mu sans up" style="font-size:13px;--d:1.6s">'
+               f'Event-driven backend on AWS — containers on Lightsail, infrastructure as code, '
+               f'tested and deployed on every push.</text>')
     css = (".spin{animation:spin 3s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}"
-           ".flow{animation:flow 1s linear infinite}@keyframes flow{to{stroke-dashoffset:-18}}")
-    lab = ("How I ship: web app (React, Next.js) to a rate-limited load balancer, NestJS REST API with Prisma and "
-           "PostgreSQL, SQS queue and autoscaled workers on AWS, managed by Terraform, CI/CD with GitHub Actions")
+           ".spin-slow{animation:spin 9s linear infinite}"
+           ".march{animation:march 1.2s linear infinite}@keyframes march{to{stroke-dashoffset:-24}}"
+           ".qbar{transform-box:fill-box;transform-origin:bottom;animation:qbar 1.6s ease-in-out infinite}"
+           "@keyframes qbar{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}"
+           f".hit{{opacity:0;animation:hit {cycle}s ease-out infinite}}"
+           "@keyframes hit{0%{opacity:0}8%{opacity:.9}30%,100%{opacity:0}}"
+           f".lit{{opacity:0;animation:lit {run}s ease-out infinite}}"
+           "@keyframes lit{0%{opacity:0}6%{opacity:1}30%,100%{opacity:0}}"
+           "@media (prefers-reduced-motion:reduce){.spin,.spin-slow,.march,.qbar,.hit,.lit{animation:none}}")
+    lab = ("How I ship: users reach a React + Vite web app on S3 and CloudFront, which calls a NestJS REST API; the API "
+           "writes to PostgreSQL on RDS and queues jobs in SQS with a dead-letter queue; workers consume them, call "
+           "third-party APIs and save results. API and workers run as containers on Lightsail; infrastructure in "
+           "Terraform for dev and prod. CI/CD with GitHub Actions: push, test, snapshot, build, deploy, smoke checks.")
     write("img/architecture.svg", svg(W, H, lab, "\n".join(out), css))
 
 
