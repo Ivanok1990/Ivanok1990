@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 284" width="860" height="284" role="img" aria-label="now.log: working: Full Stack Dev @ Colibrí · REST APIs, workers, SQS, Terraform; studying: Postgrad in Management &amp; Leadership · Keiser University; learning: AWS Cloud Practitioner · cloud architecture · CI/CD; certs: GitHub Foundations · ISTQB CTFL · Terraform Associate; degree: B.S. Software Engineering · Keiser University (2025); looking: remote Full Stack roles · cloud · devops">
+<title>now.log: working: Full Stack Dev @ Colibrí · REST APIs, workers, SQS, Terraform; studying: Postgrad in Management &amp; Leadership · Keiser University; learning: AWS Cloud Practitioner · cloud architecture · CI/CD; certs: GitHub Foundations · ISTQB CTFL · Terraform Associate; degree: B.S. Software Engineering · Keiser University (2025); looking: remote Full Stack roles · cloud · devops</title>
+<style>
+.p{fill:#3fb950;font:16px ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace}
+.c{fill:#e6edf3;font:16px ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace}
+.o{fill:#c9d1d9;font:15px ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace}
+.s{fill:#c9d1d9;font:13px ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace}
+.hi{fill:#e6edf3;font-weight:700}
+.a{fill:#58a6ff}
+.g{fill:#3fb950}
+.m{fill:#8b949e}
+.ty{clip-path:inset(0 100% 0 0);animation:ty var(--t) steps(var(--n),end) var(--d) forwards}
+@keyframes ty{to{clip-path:inset(0 0 0 0)}}
+.cur{fill:#e6edf3;opacity:0;animation:on 0s var(--d) forwards,blink 1s steps(1) var(--d) infinite}
+@keyframes blink{50%{opacity:0}}
+.in{opacity:0;animation:on .3s ease-out var(--d) forwards}
+@keyframes on{to{opacity:1}}
+.up{opacity:0;animation:up .5s cubic-bezier(.2,.8,.2,1) var(--d) forwards}
+@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.ty{animation:none;clip-path:none}.in,.up{animation:none;opacity:1}}
+</style>
+<rect x="0.5" y="0.5" width="859.0" height="283.0" rx="12" fill="#0d1117" stroke="#30363d"/>
+<text x="28" y="38" class="p in" style="--d:0.20s">omar@github ~ $</text><text x="181.6" y="38" class="c ty" style="--d:0.20s;--t:0.82s;--n:15">tail -f now.log</text>
+<g class="up" style="--d:1.27s"><text x="28" y="76" class="o m">[01]</text><text x="77.5" y="76" class="o a">working</text><text x="158.5" y="76" class="o"><tspan class="m">→ </tspan>Full Stack Dev @ Colibrí · REST APIs, workers, SQS, Terraform</text></g>
+<g class="up" style="--d:1.42s"><text x="28" y="104" class="o m">[02]</text><text x="77.5" y="104" class="o a">studying</text><text x="158.5" y="104" class="o"><tspan class="m">→ </tspan>Postgrad in Management &amp; Leadership · Keiser University</text></g>
+<g class="up" style="--d:1.57s"><text x="28" y="132" class="o m">[03]</text><text x="77.5" y="132" class="o a">learning</text><text x="158.5" y="132" class="o"><tspan class="m">→ </tspan>AWS Cloud Practitioner · cloud architecture · CI/CD</text></g>
+<g class="up" style="--d:1.72s"><text x="28" y="160" class="o m">[04]</text><text x="77.5" y="160" class="o a">certs</text><text x="158.5" y="160" class="o"><tspan class="m">→ </tspan>GitHub Foundations · ISTQB CTFL · Terraform Associate</text></g>
+<g class="up" style="--d:1.88s"><text x="28" y="188" class="o m">[05]</text><text x="77.5" y="188" class="o a">degree</text><text x="158.5" y="188" class="o"><tspan class="m">→ </tspan>B.S. Software Engineering · Keiser University (2025)</text></g>
+<g class="up" style="--d:2.02s"><text x="28" y="216" class="o m">[06]</text><text x="77.5" y="216" class="o a">looking</text><text x="158.5" y="216" class="o"><tspan class="m">→ </tspan>remote Full Stack roles · cloud · devops</text></g>
+<text x="28" y="250" class="p in" style="--d:2.47s">omar@github ~ $</text>
+<rect x="181.6" y="237" width="8" height="16" class="cur" style="--d:2.47s"/>
+</svg>

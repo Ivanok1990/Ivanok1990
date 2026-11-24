@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 286 104" width="286" height="104" role="img" aria-label="linkedin: in/omar-quintanilla-09950420b">
+<title>linkedin: in/omar-quintanilla-09950420b</title>
+<style>
+.p{fill:#3fb950;font:16px ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace}
+.c{fill:#e6edf3;font:16px ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace}
+.o{fill:#c9d1d9;font:15px ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace}
+.s{fill:#c9d1d9;font:13px ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace}
+.hi{fill:#e6edf3;font-weight:700}
+.a{fill:#58a6ff}
+.g{fill:#3fb950}
+.m{fill:#8b949e}
+.ty{clip-path:inset(0 100% 0 0);animation:ty var(--t) steps(var(--n),end) var(--d) forwards}
+@keyframes ty{to{clip-path:inset(0 0 0 0)}}
+.cur{fill:#e6edf3;opacity:0;animation:on 0s var(--d) forwards,blink 1s steps(1) var(--d) infinite}
+@keyframes blink{50%{opacity:0}}
+.in{opacity:0;animation:on .3s ease-out var(--d) forwards}
+@keyframes on{to{opacity:1}}
+.up{opacity:0;animation:up .5s cubic-bezier(.2,.8,.2,1) var(--d) forwards}
+@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.ty{animation:none;clip-path:none}.in,.up{animation:none;opacity:1}}
+</style>
+<rect x="4" y="4" width="278" height="96" rx="12" fill="#0d1117" stroke="#30363d"/>
+<text x="22" y="40" class="p in" style="--d:0.30s">~ $</text><text x="60.4" y="40" class="c ty" style="--d:0.30s;--t:0.71s;--n:13">open linkedin</text><text x="22" y="74" class="up" style="--d:1.16s;fill:#58a6ff;font:700 13px ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace">in/omar-quintanilla-09950420b</text>
+</svg>

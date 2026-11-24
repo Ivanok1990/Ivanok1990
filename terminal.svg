@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 296" width="860" height="296" role="img" aria-label="Omar Iván Quintanilla (@Ivanok1990) — Full Stack Developer, Cloud &amp; DevOps. Managua, Nicaragua · UTC-6 · open to remote. Building internal platforms @ Colibrí with NestJS, React, AWS &amp; Terraform.">
+<title>Omar Iván Quintanilla (@Ivanok1990) — Full Stack Developer, Cloud &amp; DevOps. Managua, Nicaragua · UTC-6 · open to remote. Building internal platforms @ Colibrí with NestJS, React, AWS &amp; Terraform.</title>
+<style>
+.p{fill:#3fb950;font:16px ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace}
+.c{fill:#e6edf3;font:16px ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace}
+.o{fill:#c9d1d9;font:15px ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace}
+.s{fill:#c9d1d9;font:13px ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace}
+.hi{fill:#e6edf3;font-weight:700}
+.a{fill:#58a6ff}
+.g{fill:#3fb950}
+.m{fill:#8b949e}
+.ty{clip-path:inset(0 100% 0 0);animation:ty var(--t) steps(var(--n),end) var(--d) forwards}
+@keyframes ty{to{clip-path:inset(0 0 0 0)}}
+.cur{fill:#e6edf3;opacity:0;animation:on 0s var(--d) forwards,blink 1s steps(1) var(--d) infinite}
+@keyframes blink{50%{opacity:0}}
+.in{opacity:0;animation:on .3s ease-out var(--d) forwards}
+@keyframes on{to{opacity:1}}
+.up{opacity:0;animation:up .5s cubic-bezier(.2,.8,.2,1) var(--d) forwards}
+@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.ty{animation:none;clip-path:none}.in,.up{animation:none;opacity:1}}
+.dot{transform-box:fill-box;transform-origin:center;animation:pulse 2s ease-in-out infinite}@keyframes pulse{50%{opacity:.35;transform:scale(.7)}}</style>
+<rect x="0.5" y="0.5" width="859.0" height="295.0" rx="12" fill="#0d1117" stroke="#30363d"/>
+<text x="28" y="40" class="p in" style="--d:0.20s">omar@github ~ $</text><text x="181.6" y="40" class="c ty" style="--d:0.20s;--t:0.33s;--n:6">whoami</text>
+<text x="28" y="74" class="o up" style="--d:0.78s"><tspan class="hi">Omar Iván Quintanilla</tspan><tspan class="m"> (@Ivanok1990)</tspan></text>
+<text x="28" y="101" class="o up" style="--d:0.90s"><tspan class="a">Full Stack Developer</tspan><tspan class="m"> · </tspan>Cloud &amp; DevOps</text>
+<text x="28" y="128" class="o up" style="--d:1.02s"><tspan class="m">Managua, Nicaragua · UTC-6 · open to remote</tspan></text>
+<text x="28" y="155" class="o up" style="--d:1.14s">Building internal platforms @ Colibrí with NestJS, React, AWS &amp; Terraform</text>
+<text x="28" y="204" class="p in" style="--d:1.66s">omar@github ~ $</text><text x="181.6" y="204" class="c ty" style="--d:1.66s;--t:0.44s;--n:8">./status</text>
+<g class="up" style="--d:2.30s"><circle cx="34" cy="233" r="5" class="g dot"/><text x="48" y="238" class="o">available for remote full stack roles</text></g>
+<text x="28" y="276" class="p in" style="--d:2.80s">omar@github ~ $</text>
+<rect x="181.6" y="263" width="8" height="16" class="cur" style="--d:2.80s"/>
+</svg>

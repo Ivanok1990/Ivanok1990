@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 172" width="430" height="172" role="img" aria-label="Quintanilla Airlines: Full stack airline reservation platform: flight search, bookings and admin. (React · Node.js · Express · MySQL · Sequelize)">
+<title>Quintanilla Airlines: Full stack airline reservation platform: flight search, bookings and admin. (React · Node.js · Express · MySQL · Sequelize)</title>
+<style>
+.p{fill:#3fb950;font:16px ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace}
+.c{fill:#e6edf3;font:16px ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace}
+.o{fill:#c9d1d9;font:15px ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace}
+.s{fill:#c9d1d9;font:13px ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace}
+.hi{fill:#e6edf3;font-weight:700}
+.a{fill:#58a6ff}
+.g{fill:#3fb950}
+.m{fill:#8b949e}
+.ty{clip-path:inset(0 100% 0 0);animation:ty var(--t) steps(var(--n),end) var(--d) forwards}
+@keyframes ty{to{clip-path:inset(0 0 0 0)}}
+.cur{fill:#e6edf3;opacity:0;animation:on 0s var(--d) forwards,blink 1s steps(1) var(--d) infinite}
+@keyframes blink{50%{opacity:0}}
+.in{opacity:0;animation:on .3s ease-out var(--d) forwards}
+@keyframes on{to{opacity:1}}
+.up{opacity:0;animation:up .5s cubic-bezier(.2,.8,.2,1) var(--d) forwards}
+@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.ty{animation:none;clip-path:none}.in,.up{animation:none;opacity:1}}
+</style>
+<rect x="4" y="4" width="422" height="164" rx="12" fill="#0d1117" stroke="#30363d"/>
+<text x="22" y="38" class="p in" style="--d:0.30s">~ $</text><text x="60.4" y="38" class="c ty" style="--d:0.30s;--t:1.87s;--n:34">cd ~/projects/quintanilla-airlines</text>
+<text x="22" y="72" class="up" style="--d:2.37s;fill:#e6edf3;font:700 18px ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace">Quintanilla Airlines</text>
+<text x="22" y="100" class="s up" style="--d:2.47s">Full stack airline reservation platform:</text>
+<text x="22" y="120" class="s up" style="--d:2.55s">flight search, bookings and admin.</text>
+<text x="22" y="152" class="up" style="--d:2.72s;fill:#58a6ff;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace">React · Node.js · Express · MySQL · Sequelize</text>
+<text x="408" y="72" class="m in" text-anchor="end" style="--d:2.37s;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace">view repo →</text>
+</svg>
