@@ -476,6 +476,27 @@ def contact(i, file, name, value, color):
     write(f"img/contact-{file}.svg", svg(w, h, f"{name}: {value}", "\n".join(out), css))
 
 
+def bust_cache():
+    """GitHub caches README images by URL. Append a content hash to every img/*.svg
+    reference so a changed panel gets a new URL and shows up immediately."""
+    import hashlib
+    import re
+    readme = os.path.join(ROOT, "README.md")
+    text = open(readme, encoding="utf-8").read()
+
+    def repl(m):
+        name = m.group(1)
+        with open(os.path.join(ROOT, "img", name), "rb") as f:
+            digest = hashlib.sha1(f.read()).hexdigest()[:8]
+        return f"./img/{name}?v={digest}"
+
+    new = re.sub(r"\./img/([\w-]+\.svg)(?:\?v=\w+)?", repl, text)
+    if new != text:
+        with open(readme, "w", encoding="utf-8", newline="\n") as f:
+            f.write(new)
+        print("README image versions updated")
+
+
 if __name__ == "__main__":
     src = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, "data", "contributions.json")
     data, days = load_days(src)
@@ -487,3 +508,4 @@ if __name__ == "__main__":
     row_bottom()
     for i, c in enumerate(PROFILE["contacts"]):
         contact(i, *c)
+    bust_cache()
