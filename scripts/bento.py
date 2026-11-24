@@ -419,16 +419,16 @@ def row_bottom():
              f'<image href="data:image/png;base64,{b64}" x="{bx:.1f}" y="{by}" width="{bs}" height="{bs}"/></g></g>')
     ly = M + 170
     out.append(tile(cx, M, COL, th, .2,
-                    label(cx + 24, M + 34, "Certifications") + badge
-                    + T(cx + 24, ly, "Learning:", "mu sans", 12)
-                    + T(cx + 24, ly + 18, p["learning"], "soft sans b", 12.5)
+                    f'<text x="{cx + COL / 2}" y="{M + 34}" class="lbl" text-anchor="middle">CERTIFICATIONS</text>' + badge
+                    + T(cx + COL / 2, ly, "Learning:", "mu sans", 12, ";text-anchor:middle")
+                    + T(cx + COL / 2, ly + 18, p["learning"], "soft sans b", 12.5, ";text-anchor:middle")
                     + f'<rect x="{cx + 24}" y="{ly + 30}" width="{COL - 48}" height="6" rx="3" fill="var(--edge)"/>'
                     + f'<rect x="{cx + 24}" y="{ly + 30}" width="{(COL - 48) * .35:.0f}" height="6" rx="3" fill="url(#prog)" class="prog"/>'))
     ax = xs[3]
     with open(os.path.join(ROOT, "data", "awards-photo.jpg"), "rb") as f:
         photo = base64.b64encode(f.read()).decode()
     lines = "".join(
-        f'<text x="{ax + 20}" y="{M + 60 + i * 20}" class="sans b" style="font-size:13px;fill:#fff">'
+        f'<text x="{ax + 24}" y="{M + 60 + i * 20}" class="sans b" style="font-size:13px;fill:#fff">'
         f'<tspan style="fill:#fbbf24;font-weight:800">{esc(n)}</tspan> {esc(what)}</text>'
         for i, (n, what) in enumerate(p["awards"]))
     out.append(
@@ -437,9 +437,9 @@ def row_bottom():
         f'width="{COL}" height="{th}" preserveAspectRatio="xMidYMax slice"/></g>'
         f'<rect x="{ax}" y="{M}" width="{COL}" height="{th}" fill="url(#ashade)"/></g>'
         f'<rect x="{ax + .5}" y="{M + .5}" width="{COL - 1}" height="{th - 1}" rx="20" fill="none" stroke="var(--edge)"/>'
-        f'<text x="{ax + 20}" y="{M + 30}" class="lbl" style="fill:#c9d1d9">AWARDS</text>'
+        f'<text x="{ax + 24}" y="{M + 34}" class="lbl" style="fill:#c9d1d9">AWARDS</text>'
         f'<g class="up" style="--d:.7s">{lines}</g>'
-        f'<text x="{ax + 20}" y="{M + 100}" class="sans" style="font-size:11px;fill:#c9d1d9">{esc(p["awards_from"])}</text>'
+        f'<text x="{ax + 24}" y="{M + 100}" class="sans" style="font-size:11px;fill:#c9d1d9">{esc(p["awards_from"])}</text>'
         "</g>")
     defs = ('<defs><linearGradient id="prog" x1="0" x2="1"><stop offset="0" stop-color="#6d5dfc"/>'
             '<stop offset="1" stop-color="#18c2d8"/></linearGradient>'
