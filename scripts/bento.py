@@ -55,7 +55,7 @@ PROFILE = {
     "learning": "AWS Cloud Practitioner",
     "awards": ("3×", ["Keiser Software Club", "winner"]),
     "contacts": [
-        ("portfolio", "Portfolio", "omarquintanilla.netlify.app", "#6d5dfc"),
+        ("portfolio", "Portfolio", "omarquintanilla.com", "#6d5dfc"),
         ("linkedin", "LinkedIn", "omar-quintanilla", "#0a66c2"),
         ("email", "Email", "omarrayo988@gmail.com", "#18a3b8"),
     ],

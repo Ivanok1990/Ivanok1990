@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 286.67 96" width="286.67" height="96" role="img" aria-label="Portfolio: omarquintanilla.netlify.app">
-<title>Portfolio: omarquintanilla.netlify.app</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 286.67 96" width="286.67" height="96" role="img" aria-label="Portfolio: omarquintanilla.com">
+<title>Portfolio: omarquintanilla.com</title>
 <style>
 svg{--tile:#11151c;--edge:#232a35;--chip:#171c25;--fg:#f0f3f6;--soft:#c4cad3;--muted:#7d8794;--accent:#8f9bff;
 --green:#3ee07c;--cyan:#18c2d8;--violet:#6d5dfc;--pink:#e24bb0;--amber:#fbbf24;
@@ -22,5 +22,5 @@ svg{--tile:#11151c;--edge:#232a35;--chip:#171c25;--fg:#f0f3f6;--soft:#c4cad3;--m
 @media (prefers-reduced-motion:reduce){.up,.in{animation:none;opacity:1}}
 .nudge{animation:nudge 2.4s ease-in-out infinite}@keyframes nudge{50%{transform:translate(2px,-2px)}}</style>
 
-<g class="up" style="--d:0.10s"><rect x="6.5" y="6.5" width="273.67" height="83" rx="20" class="t"/><text x="28" y="39" class="lbl">PORTFOLIO</text><text x="28" y="66" class="fg sans b" style="font-size:12.5px">omarquintanilla.netlify.app</text><circle cx="248.67000000000002" cy="48.0" r="15" fill="#6d5dfc"/><path d="M243.67000000000002 53.0 l10 -10 M245.67000000000002 43.0 h8 v8" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="nudge"/></g>
+<g class="up" style="--d:0.10s"><rect x="6.5" y="6.5" width="273.67" height="83" rx="20" class="t"/><text x="28" y="39" class="lbl">PORTFOLIO</text><text x="28" y="66" class="fg sans b" style="font-size:14px">omarquintanilla.com</text><circle cx="248.67000000000002" cy="48.0" r="15" fill="#6d5dfc"/><path d="M243.67000000000002 53.0 l10 -10 M245.67000000000002 43.0 h8 v8" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="nudge"/></g>
 </svg>
