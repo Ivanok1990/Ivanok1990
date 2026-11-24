@@ -409,27 +409,17 @@ def row_bottom():
     out.append(tile(xs[0], M, jw, th, .1, label(xs[0] + 24, M + 34, "Journey") + "".join(rows)))
 
     cx = xs[2]
-    # GitHub Foundations badge: hexagon emblem + name
-    bx, by, r = cx + 56, M + 100, 34
-    hexagon = " ".join(f"{bx + r * math.cos(math.radians(a)):.1f},{by + r * math.sin(math.radians(a)):.1f}"
-                       for a in range(-90, 270, 60))
-    inner = " ".join(f"{bx + (r - 5) * math.cos(math.radians(a)):.1f},{by + (r - 5) * math.sin(math.radians(a)):.1f}"
-                     for a in range(-90, 270, 60))
-    badge = (f'<g class="badge" style="--d:.5s"><polygon points="{hexagon}" fill="url(#bdg)"/>'
-             f'<polygon points="{inner}" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.2"/>'
-             f'{icon("github", bx - 14, by - 18, 28)}'.replace('fill="var(--fg)"', 'fill="#fff"')
-             + f'<text x="{bx}" y="{by + 24}" text-anchor="middle" class="mono b" style="font-size:6px;fill:#fff;letter-spacing:.5px">FOUNDATIONS</text>'
-             f'<g clip-path="url(#bclip)"><rect x="{bx - r - 30}" y="{by - r}" width="18" height="{2 * r}" fill="#fff" '
-             f'opacity=".35" transform="skewX(-20)" class="shine"/></g></g>')
-    ly = M + 162
+    # GitHub Foundations badge (the official image, embedded so it renders inside <img>)
+    import base64
+    with open(os.path.join(ROOT, "data", "badge-github-foundations.png"), "rb") as f:
+        b64 = base64.b64encode(f.read()).decode()
+    bs = 98
+    bx, by = cx + (COL - bs) / 2, M + 44
+    badge = (f'<g class="badge" style="--d:.5s"><g class="float">'
+             f'<image href="data:image/png;base64,{b64}" x="{bx:.1f}" y="{by}" width="{bs}" height="{bs}"/></g></g>')
+    ly = M + 170
     out.append(tile(cx, M, COL, th, .2,
                     label(cx + 24, M + 34, "Certifications") + badge
-                    + f'<g class="up" style="--d:.7s">'
-                    + T(bx + r + 14, by - 8, "GitHub", "fg sans b", 14)
-                    + T(bx + r + 14, by + 10, "Foundations", "fg sans b", 14)
-                    + f'<path d="M{bx + r + 15} {by + 25} l3 3 l6 -7" fill="none" stroke="var(--green)" stroke-width="2" '
-                      f'stroke-linecap="round" stroke-linejoin="round"/>'
-                    + T(bx + r + 28, by + 29, "certified", "gr sans b", 11.5) + "</g>"
                     + T(cx + 24, ly, "Learning:", "mu sans", 12)
                     + T(cx + 24, ly + 18, p["learning"], "soft sans b", 12.5)
                     + f'<rect x="{cx + 24}" y="{ly + 30}" width="{COL - 48}" height="6" rx="3" fill="var(--edge)"/>'
@@ -448,9 +438,7 @@ def row_bottom():
                               for j, (dx, dy) in enumerate(((0, 0), (24, 14), (4, 26))))))
     defs = ('<defs><linearGradient id="prog" x1="0" x2="1"><stop offset="0" stop-color="#6d5dfc"/>'
             '<stop offset="1" stop-color="#18c2d8"/></linearGradient>'
-            '<linearGradient id="bdg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2b3137"/>'
-            '<stop offset=".55" stop-color="#6e40c9"/><stop offset="1" stop-color="#2f81f7"/></linearGradient>'
-            f'<clipPath id="bclip"><polygon points="{hexagon}"/></clipPath></defs>')
+            '</defs>')
     css = (".sl{opacity:0;animation:sl .55s cubic-bezier(.2,.8,.2,1) var(--d) forwards}"
            "@keyframes sl{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:none}}"
            f".prog{{animation:prog 2.4s ease-in-out infinite alternate}}"
@@ -460,10 +448,10 @@ def row_bottom():
            ".spark{opacity:0;transform-box:fill-box;transform-origin:center;animation:spark 2.4s ease-in-out infinite}"
            "@keyframes spark{0%,100%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1) rotate(45deg)}}"
            ".badge{opacity:0;transform-box:fill-box;transform-origin:center;animation:bpop .7s cubic-bezier(.2,.8,.2,1.4) var(--d) forwards}"
-           "@keyframes bpop{from{opacity:0;transform:scale(.4) rotate(-30deg)}to{opacity:1;transform:none}}"
-           ".shine{animation:shine 3.5s ease-in-out 1.4s infinite}"
-           "@keyframes shine{0%{transform:skewX(-20deg) translateX(0)}40%,100%{transform:skewX(-20deg) translateX(110px)}}"
-           "@media (prefers-reduced-motion:reduce){.sl,.pop,.badge{animation:none;opacity:1}.prog,.spark,.shine{animation:none}}")
+           "@keyframes bpop{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:none}}"
+           ".float{animation:float 4s ease-in-out 1.2s infinite}"
+           "@keyframes float{50%{transform:translateY(-4px)}}"
+           "@media (prefers-reduced-motion:reduce){.sl,.pop,.badge{animation:none;opacity:1}.prog,.spark,.float{animation:none}}")
     lab = ("Journey: " + "; ".join(f"{a}: {b}" for a, b in p["journey"]) + ". Certifications: " + ", ".join(p["certs"])
            + f". Learning {p['learning']}. Awards ({p['awards_from']}): " + ", ".join(f"{n} {w}" for n, w in p["awards"]) + ".")
     write("img/bottom.svg", svg(W, H, lab, "\n".join(out), css, defs))
