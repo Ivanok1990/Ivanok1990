@@ -51,9 +51,10 @@ PROFILE = {
         ("2026", "B.S. Software Engineering · Keiser"),
         ("Before", "AI Engineer @ OneClick · AI QA @ Outlier"),
     ],
-    "certs": ["GitHub Foundations", "ISTQB CTFL", "Terraform Associate"],
+    "certs": ["GitHub Foundations"],
     "learning": "AWS Cloud Practitioner",
-    "awards": ("3×", ["Keiser Software Club", "winner"]),
+    "awards": [("3×", "Outstanding Club"), ("1×", "Outstanding Activity")],
+    "awards_from": "Keiser Software Club",
     "contacts": [
         ("portfolio", "Portfolio", "omarquintanilla.com", "#6d5dfc"),
         ("linkedin", "LinkedIn", "omar-quintanilla", "#0a66c2"),
@@ -408,29 +409,48 @@ def row_bottom():
     out.append(tile(xs[0], M, jw, th, .1, label(xs[0] + 24, M + 34, "Journey") + "".join(rows)))
 
     cx = xs[2]
-    certs = "".join(
-        f'<g class="up" style="--d:{.5 + i * .15:.2f}s"><path d="M{cx + 25} {M + 64 + i * 28} l4 4 l8 -9" fill="none" '
-        f'stroke="var(--green)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>'
-        + T(cx + 44, M + 69 + i * 28, c, "fg sans b", 13.5) + "</g>"
-        for i, c in enumerate(p["certs"]))
-    ly = M + 69 + len(p["certs"]) * 28 + 14
+    # GitHub Foundations badge: hexagon emblem + name
+    bx, by, r = cx + 56, M + 100, 34
+    hexagon = " ".join(f"{bx + r * math.cos(math.radians(a)):.1f},{by + r * math.sin(math.radians(a)):.1f}"
+                       for a in range(-90, 270, 60))
+    inner = " ".join(f"{bx + (r - 5) * math.cos(math.radians(a)):.1f},{by + (r - 5) * math.sin(math.radians(a)):.1f}"
+                     for a in range(-90, 270, 60))
+    badge = (f'<g class="badge" style="--d:.5s"><polygon points="{hexagon}" fill="url(#bdg)"/>'
+             f'<polygon points="{inner}" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.2"/>'
+             f'{icon("github", bx - 14, by - 18, 28)}'.replace('fill="var(--fg)"', 'fill="#fff"')
+             + f'<text x="{bx}" y="{by + 24}" text-anchor="middle" class="mono b" style="font-size:6px;fill:#fff;letter-spacing:.5px">FOUNDATIONS</text>'
+             f'<g clip-path="url(#bclip)"><rect x="{bx - r - 30}" y="{by - r}" width="18" height="{2 * r}" fill="#fff" '
+             f'opacity=".35" transform="skewX(-20)" class="shine"/></g></g>')
+    ly = M + 162
     out.append(tile(cx, M, COL, th, .2,
-                    label(cx + 24, M + 34, "Certifications") + certs
+                    label(cx + 24, M + 34, "Certifications") + badge
+                    + f'<g class="up" style="--d:.7s">'
+                    + T(bx + r + 14, by - 8, "GitHub", "fg sans b", 14)
+                    + T(bx + r + 14, by + 10, "Foundations", "fg sans b", 14)
+                    + f'<path d="M{bx + r + 15} {by + 25} l3 3 l6 -7" fill="none" stroke="var(--green)" stroke-width="2" '
+                      f'stroke-linecap="round" stroke-linejoin="round"/>'
+                    + T(bx + r + 28, by + 29, "certified", "gr sans b", 11.5) + "</g>"
                     + T(cx + 24, ly, "Learning:", "mu sans", 12)
                     + T(cx + 24, ly + 18, p["learning"], "soft sans b", 12.5)
                     + f'<rect x="{cx + 24}" y="{ly + 30}" width="{COL - 48}" height="6" rx="3" fill="var(--edge)"/>'
                     + f'<rect x="{cx + 24}" y="{ly + 30}" width="{(COL - 48) * .35:.0f}" height="6" rx="3" fill="url(#prog)" class="prog"/>'))
     ax = xs[3]
-    big, lines = p["awards"]
+    awards = "".join(
+        f'<g class="up" style="--d:{.5 + i * .2:.2f}s">'
+        f'<text x="{ax + 24}" y="{M + 88 + i * 64}" class="fg sans xb" style="font-size:34px">{esc(n)}</text>'
+        + T(ax + 24, M + 110 + i * 64, what, "soft sans b", 13.5) + "</g>"
+        for i, (n, what) in enumerate(p["awards"]))
     out.append(tile(ax, M, COL, th, .3,
-                    label(ax + 24, M + 34, "Awards")
-                    + f'<text x="{ax + 24}" y="{M + 104}" class="fg sans xb pop" style="font-size:54px">{esc(big)}</text>'
-                    + "".join(T(ax + 24, M + 136 + i * 20, l, "soft sans", 13.5) for i, l in enumerate(lines))
-                    + "".join(f'<path d="M{ax + 128 + dx} {M + 58 + dy} l3 7 l7 3 l-7 3 l-3 7 l-3 -7 l-7 -3 l7 -3 z" '
+                    label(ax + 24, M + 34, "Awards") + awards
+                    + T(ax + 24, M + th - 22, p["awards_from"], "mu sans", 12)
+                    + "".join(f'<path d="M{ax + 128 + dx} {M + 50 + dy} l3 7 l7 3 l-7 3 l-3 7 l-3 -7 l-7 -3 l7 -3 z" '
                               f'class="am spark" style="animation-delay:{.8 + j * .5:.1f}s"/>'
-                              for j, (dx, dy) in enumerate(((0, 0), (28, 18), (8, 38))))))
+                              for j, (dx, dy) in enumerate(((0, 0), (24, 14), (4, 26))))))
     defs = ('<defs><linearGradient id="prog" x1="0" x2="1"><stop offset="0" stop-color="#6d5dfc"/>'
-            '<stop offset="1" stop-color="#18c2d8"/></linearGradient></defs>')
+            '<stop offset="1" stop-color="#18c2d8"/></linearGradient>'
+            '<linearGradient id="bdg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2b3137"/>'
+            '<stop offset=".55" stop-color="#6e40c9"/><stop offset="1" stop-color="#2f81f7"/></linearGradient>'
+            f'<clipPath id="bclip"><polygon points="{hexagon}"/></clipPath></defs>')
     css = (".sl{opacity:0;animation:sl .55s cubic-bezier(.2,.8,.2,1) var(--d) forwards}"
            "@keyframes sl{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:none}}"
            f".prog{{animation:prog 2.4s ease-in-out infinite alternate}}"
@@ -439,9 +459,13 @@ def row_bottom():
            "@keyframes apop{from{transform:scale(.3);opacity:0}to{transform:none;opacity:1}}"
            ".spark{opacity:0;transform-box:fill-box;transform-origin:center;animation:spark 2.4s ease-in-out infinite}"
            "@keyframes spark{0%,100%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1) rotate(45deg)}}"
-           "@media (prefers-reduced-motion:reduce){.sl,.pop{animation:none;opacity:1}.prog,.spark{animation:none}}")
+           ".badge{opacity:0;transform-box:fill-box;transform-origin:center;animation:bpop .7s cubic-bezier(.2,.8,.2,1.4) var(--d) forwards}"
+           "@keyframes bpop{from{opacity:0;transform:scale(.4) rotate(-30deg)}to{opacity:1;transform:none}}"
+           ".shine{animation:shine 3.5s ease-in-out 1.4s infinite}"
+           "@keyframes shine{0%{transform:skewX(-20deg) translateX(0)}40%,100%{transform:skewX(-20deg) translateX(110px)}}"
+           "@media (prefers-reduced-motion:reduce){.sl,.pop,.badge{animation:none;opacity:1}.prog,.spark,.shine{animation:none}}")
     lab = ("Journey: " + "; ".join(f"{a}: {b}" for a, b in p["journey"]) + ". Certifications: " + ", ".join(p["certs"])
-           + f". Learning {p['learning']}. Awards: {big} {' '.join(lines)}.")
+           + f". Learning {p['learning']}. Awards ({p['awards_from']}): " + ", ".join(f"{n} {w}" for n, w in p["awards"]) + ".")
     write("img/bottom.svg", svg(W, H, lab, "\n".join(out), css, defs))
 
 
