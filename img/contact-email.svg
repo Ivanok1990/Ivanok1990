@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 286.67 96" width="286.67" height="96" role="img" aria-label="Email: omarrayo988@gmail.com">
+<title>Email: omarrayo988@gmail.com</title>
+<style>
+svg{--tile:#11151c;--edge:#232a35;--chip:#171c25;--fg:#f0f3f6;--soft:#c4cad3;--muted:#7d8794;--accent:#8f9bff;
+--green:#3ee07c;--cyan:#18c2d8;--violet:#6d5dfc;--pink:#e24bb0;--amber:#fbbf24;
+--h0:#1a2029;--h1:#2e2a6e;--h2:#4b40c9;--h3:#6d5dfc;--h4:#18c2d8;--blob:.55}
+@media (prefers-color-scheme:light){svg{--tile:#f6f8fa;--edge:#d0d7de;--chip:#ffffff;--fg:#1f2328;--soft:#3d444d;
+--muted:#59636e;--accent:#5b4bdb;--green:#1a7f37;--cyan:#0e8ea3;--amber:#b45309;
+--h0:#e9ecf0;--h1:#d6d1fe;--h2:#a79bfb;--h3:#6d5dfc;--h4:#0e9fb5;--blob:.28}}
+.t{fill:var(--tile);stroke:var(--edge)}
+.fg{fill:var(--fg)}.soft{fill:var(--soft)}.mu{fill:var(--muted)}.ac{fill:var(--accent)}.gr{fill:var(--green)}
+.cy{fill:var(--cyan)}.vi{fill:var(--violet)}.pk{fill:var(--pink)}.am{fill:var(--amber)}
+.sans{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Helvetica,Arial,sans-serif}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace}.b{font-weight:700}.xb{font-weight:800}
+.lbl{fill:var(--muted);font:600 11px -apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Helvetica,Arial,sans-serif;letter-spacing:1.6px}
+.up{opacity:0;animation:up .6s cubic-bezier(.2,.8,.2,1) var(--d) forwards}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.in{opacity:0;animation:in .4s ease-out var(--d) forwards}@keyframes in{to{opacity:1}}
+.pulse{transform-box:fill-box;transform-origin:center;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.4;transform:scale(.7)}}
+.ping{transform-box:fill-box;transform-origin:center;animation:ping 2s ease-out infinite}
+@keyframes ping{from{opacity:.9;transform:scale(.5)}to{opacity:0;transform:scale(2.2)}}
+@media (prefers-reduced-motion:reduce){.up,.in{animation:none;opacity:1}}
+.nudge{animation:nudge 2.4s ease-in-out infinite}@keyframes nudge{50%{transform:translate(2px,-2px)}}</style>
+
+<g class="up" style="--d:0.30s"><rect x="6.5" y="6.5" width="273.67" height="83" rx="20" class="t"/><text x="28.0" y="39" class="lbl">EMAIL</text><text x="28.0" y="66" class="fg sans b" style="font-size:14px">omarrayo988@gmail.com</text><circle cx="248.67000000000002" cy="48.0" r="15" fill="#18a3b8"/><path d="M243.67000000000002 53.0 l10 -10 M245.67000000000002 43.0 h8 v8" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="nudge"/></g>
+</svg>
