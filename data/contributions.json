@@ -1,6 +1,6 @@
 {
  "login": "Ivanok1990",
- "total": 46,
+ "total": 47,
  "days": [
   {
    "date": "2025-11-23",
@@ -1834,8 +1834,8 @@
   },
   {
    "date": "2026-11-24",
-   "level": 2,
-   "count": 6
+   "level": 3,
+   "count": 7
   }
  ]
 }
