@@ -4,6 +4,7 @@
 
 Edit PROFILE below. The GitHub Action re-runs this daily so the contribution tile stays fresh.
 """
+import base64
 import json
 import math
 import os
@@ -410,7 +411,6 @@ def row_bottom():
 
     cx = xs[2]
     # GitHub Foundations badge (the official image, embedded so it renders inside <img>)
-    import base64
     with open(os.path.join(ROOT, "data", "badge-github-foundations.png"), "rb") as f:
         b64 = base64.b64encode(f.read()).decode()
     bs = 98
@@ -425,19 +425,27 @@ def row_bottom():
                     + f'<rect x="{cx + 24}" y="{ly + 30}" width="{COL - 48}" height="6" rx="3" fill="var(--edge)"/>'
                     + f'<rect x="{cx + 24}" y="{ly + 30}" width="{(COL - 48) * .35:.0f}" height="6" rx="3" fill="url(#prog)" class="prog"/>'))
     ax = xs[3]
-    awards = "".join(
-        f'<g class="up" style="--d:{.5 + i * .2:.2f}s">'
-        f'<text x="{ax + 24}" y="{M + 88 + i * 64}" class="fg sans xb" style="font-size:34px">{esc(n)}</text>'
-        + T(ax + 24, M + 110 + i * 64, what, "soft sans b", 13.5) + "</g>"
+    with open(os.path.join(ROOT, "data", "awards-photo.jpg"), "rb") as f:
+        photo = base64.b64encode(f.read()).decode()
+    lines = "".join(
+        f'<text x="{ax + 20}" y="{M + 60 + i * 20}" class="sans b" style="font-size:13px;fill:#fff">'
+        f'<tspan style="fill:#fbbf24;font-weight:800">{esc(n)}</tspan> {esc(what)}</text>'
         for i, (n, what) in enumerate(p["awards"]))
-    out.append(tile(ax, M, COL, th, .3,
-                    label(ax + 24, M + 34, "Awards") + awards
-                    + T(ax + 24, M + th - 22, p["awards_from"], "mu sans", 12)
-                    + "".join(f'<path d="M{ax + 128 + dx} {M + 50 + dy} l3 7 l7 3 l-7 3 l-3 7 l-3 -7 l-7 -3 l7 -3 z" '
-                              f'class="am spark" style="animation-delay:{.8 + j * .5:.1f}s"/>'
-                              for j, (dx, dy) in enumerate(((0, 0), (24, 14), (4, 26))))))
+    out.append(
+        f'<g class="up" style="--d:.3s">'
+        f'<g clip-path="url(#aclip)"><g class="kb"><image href="data:image/jpeg;base64,{photo}" x="{ax}" y="{M}" '
+        f'width="{COL}" height="{th}" preserveAspectRatio="xMidYMax slice"/></g>'
+        f'<rect x="{ax}" y="{M}" width="{COL}" height="{th}" fill="url(#ashade)"/></g>'
+        f'<rect x="{ax + .5}" y="{M + .5}" width="{COL - 1}" height="{th - 1}" rx="20" fill="none" stroke="var(--edge)"/>'
+        f'<text x="{ax + 20}" y="{M + 30}" class="lbl" style="fill:#c9d1d9">AWARDS</text>'
+        f'<g class="up" style="--d:.7s">{lines}</g>'
+        f'<text x="{ax + 20}" y="{M + 100}" class="sans" style="font-size:11px;fill:#c9d1d9">{esc(p["awards_from"])}</text>'
+        "</g>")
     defs = ('<defs><linearGradient id="prog" x1="0" x2="1"><stop offset="0" stop-color="#6d5dfc"/>'
             '<stop offset="1" stop-color="#18c2d8"/></linearGradient>'
+            '<linearGradient id="ashade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b0e13" stop-opacity=".92"/>'
+            '<stop offset=".45" stop-color="#0b0e13" stop-opacity=".35"/><stop offset=".62" stop-color="#0b0e13" stop-opacity="0"/></linearGradient>'
+            f'<clipPath id="aclip"><rect x="{xs[3]}" y="{M}" width="{COL}" height="{th}" rx="20"/></clipPath>'
             '</defs>')
     css = (".sl{opacity:0;animation:sl .55s cubic-bezier(.2,.8,.2,1) var(--d) forwards}"
            "@keyframes sl{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:none}}"
@@ -450,8 +458,10 @@ def row_bottom():
            ".badge{opacity:0;transform-box:fill-box;transform-origin:center;animation:bpop .7s cubic-bezier(.2,.8,.2,1.4) var(--d) forwards}"
            "@keyframes bpop{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:none}}"
            ".float{animation:float 4s ease-in-out 1.2s infinite}"
+           ".kb{transform-box:fill-box;transform-origin:center;animation:kb 14s ease-in-out infinite alternate}"
+           "@keyframes kb{from{transform:scale(1)}to{transform:scale(1.08)}}"
            "@keyframes float{50%{transform:translateY(-4px)}}"
-           "@media (prefers-reduced-motion:reduce){.sl,.pop,.badge{animation:none;opacity:1}.prog,.spark,.float{animation:none}}")
+           "@media (prefers-reduced-motion:reduce){.sl,.pop,.badge{animation:none;opacity:1}.prog,.spark,.float,.kb{animation:none}}")
     lab = ("Journey: " + "; ".join(f"{a}: {b}" for a, b in p["journey"]) + ". Certifications: " + ", ".join(p["certs"])
            + f". Learning {p['learning']}. Awards ({p['awards_from']}): " + ", ".join(f"{n} {w}" for n, w in p["awards"]) + ".")
     write("img/bottom.svg", svg(W, H, lab, "\n".join(out), css, defs))
