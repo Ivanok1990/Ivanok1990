@@ -406,6 +406,7 @@ svg{--tile:#11151c;--edge:#232a35;--chip:#171c25;--fg:#f0f3f6;--soft:#c4cad3;--m
 <rect x="823.02" y="224.94" width="5.45" height="5.45" rx="1.6" class="h0 cell" style="animation-delay:1.53s"><title>0 on 2026-11-25</title></rect>
 <rect x="823.02" y="231.92" width="5.45" height="5.45" rx="1.6" class="h0 cell" style="animation-delay:1.56s"><title>0 on 2026-11-26</title></rect>
 <rect x="823.02" y="238.91" width="5.45" height="5.45" rx="1.6" class="h0 cell" style="animation-delay:1.59s"><title>0 on 2026-11-27</title></rect>
+<rect x="823.02" y="245.89" width="5.45" height="5.45" rx="1.6" class="h0 cell" style="animation-delay:1.62s"><title>0 on 2026-11-28</title></rect>
 <g clip-path="url(#gridclip)"><rect x="410.0" y="202" width="50" height="52.867924528301884" fill="url(#beam)" class="scan"/></g>
 <g class="up" style="--d:1.20s"><text x="460.0" y="288.8679245283019" class="fg sans xb" style="font-size:22px">5d</text><text x="460.0" y="307.8679245283019" class="mu sans" style="font-size:12px">longest streak</text></g>
 <g class="up" style="--d:1.30s"><text x="583.3333333333334" y="288.8679245283019" class="fg sans xb" style="font-size:22px">0d</text><text x="583.3333333333334" y="307.8679245283019" class="mu sans" style="font-size:12px">current streak</text></g>
